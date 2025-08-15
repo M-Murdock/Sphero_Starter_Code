@@ -1,9 +1,12 @@
 import cv2
 from matplotlib import pyplot as plt
+from aruco_obj import Aruco
 
 dictionary = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_50)
 parameters = cv2.aruco.DetectorParameters()
 detector = cv2.aruco.ArucoDetector(dictionary, parameters)
+
+my_aruco = Aruco()
 
 # Connect to webcam
 cap = cv2.VideoCapture(0)
@@ -13,7 +16,10 @@ while cap.isOpened():
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     corners, ids, rejected = detector.detectMarkers(gray)
-    print("corners of aruco tag:", corners)
+    # print("corners of aruco tag:", corners)
+    if not len(corners) == 0:
+        my_aruco.update_corners(corners)
+        print("detected")
 
     if ids is not None:
         cv2.aruco.drawDetectedMarkers(frame, corners, ids)
@@ -25,6 +31,8 @@ while cap.isOpened():
 
 cap.release
 cv2.destroyAllWindows()
+
+print(my_aruco.get_last_corners())
 
 # sphero ar tracker object 
 #   start/stop visualizer
