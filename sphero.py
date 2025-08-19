@@ -6,7 +6,7 @@ from spherov2.types import Color
 
 
 
-toy = scanner.find_toy(toy_name="SB-B12D") # Your name here
+toy = scanner.find_toy(toy_name="SB-AAAD") # Your name here
 with SpheroEduAPI(toy) as api:
    # Visually show connection to sphero
    api.set_main_led(Color(r=0, g=255, b=0))
