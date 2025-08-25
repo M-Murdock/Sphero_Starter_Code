@@ -36,16 +36,16 @@ class ArucoDetector:
                 self.aruco_tags[cur_id].update_corners(corners) # update the aruco object with the last-detected corners
                 
                 print("detected")
-                print(ids)
+                # print(corners)
 
             if ids is not None:
                 cv2.aruco.drawDetectedMarkers(frame, corners, ids)
 
             cv2.imshow("Detected markers", frame)
 
-            # Use waitKey in a non-blocking way
+            # # Use waitKey in a non-blocking way
             if cv2.waitKey(1) & 0xFF == ord("q"):
-                await self.end_visualization()
+                self.visualizing = False
 
             await asyncio.sleep(0)  # yield to loop
 
@@ -66,10 +66,22 @@ class ArucoDetector:
             await self._task
             self._task = None
 
+    def take_pic(self, save_file="captured_image.jpg"):
+        self.cap = cv2.VideoCapture(0)
+        ret, frame = self.cap.read()
+        cv2.imshow("Captured Image", frame)
+        cv2.waitKey(0) # Wait indefinitely until a key is pressed
+        cv2.imwrite(save_file, frame)
+        self.cap.release()
+        cv2.destroyAllWindows()
+        
     def get_tags(self):
         return self.aruco_tags
     
     def get_last_tag_corners(self):
         return {k: v.get_last_corners() for k, v in self.aruco_tags.items()} 
+    
+    def get_last_tag_centers(self):
+        return {k: v.get_last_centers() for k, v in self.aruco_tags.items()} 
     
     
