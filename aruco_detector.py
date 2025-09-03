@@ -79,9 +79,15 @@ class ArucoDetector:
         return self.aruco_tags
     
     def get_last_tag_corners(self):
-        return {k: v.get_last_corners() for k, v in self.aruco_tags.items()} 
+        return {k: v.get_corners() for k, v in self.aruco_tags.items()} 
     
     def get_last_tag_centers(self):
-        return {k: v.get_last_centers() for k, v in self.aruco_tags.items()} 
+        return {k: v.get_center() for k, v in self.aruco_tags.items()} 
+    
+    def get_all_tag_corners(self):
+        return {k: v.get_all_corners() for k, v in self.aruco_tags.items()} 
+    
+    def get_all_tag_centers(self):
+        return {k: v.get_all_centers() for k, v in self.aruco_tags.items()} 
     
     
