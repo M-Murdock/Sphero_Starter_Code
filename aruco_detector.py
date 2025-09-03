@@ -36,7 +36,6 @@ class ArucoDetector:
                 self.aruco_tags[cur_id].update_corners(corners) # update the aruco object with the last-detected corners
                 
                 print("detected")
-                # print(corners)
 
             if ids is not None:
                 cv2.aruco.drawDetectedMarkers(frame, corners, ids)
@@ -66,6 +65,7 @@ class ArucoDetector:
             await self._task
             self._task = None
 
+    # takes a picture using the connected camera and saves it to a file.
     def take_pic(self, save_file="captured_image.jpg"):
         self.cap = cv2.VideoCapture(0)
         ret, frame = self.cap.read()
@@ -75,18 +75,23 @@ class ArucoDetector:
         self.cap.release()
         cv2.destroyAllWindows()
         
+    # returns a dictionary of the markers which have been detected. The key represents the unique ID of the marker and the value is the ArUco tag object.
     def get_tags(self):
         return self.aruco_tags
     
+    # returns a dictionary of the last corner coordinates where each marker was identified.
     def get_last_tag_corners(self):
         return {k: v.get_corners() for k, v in self.aruco_tags.items()} 
     
+    # returns a dictionary of the last center coordinates where each marker was identified.
     def get_last_tag_centers(self):
         return {k: v.get_center() for k, v in self.aruco_tags.items()} 
     
+    # returns a dictionary of all the corner coordinates where each marker was previously identified
     def get_all_tag_corners(self):
         return {k: v.get_all_corners() for k, v in self.aruco_tags.items()} 
     
+    # returns a dictionary of all the center coordinates where each marker was previously identified
     def get_all_tag_centers(self):
         return {k: v.get_all_centers() for k, v in self.aruco_tags.items()} 
     
