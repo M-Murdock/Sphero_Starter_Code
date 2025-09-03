@@ -5,25 +5,33 @@ class Aruco:
     def __init__(self):
         self.corners = []
         self.past_corners = []
-        # self.center = None 
+        self.center = [] 
         self.past_centers = []
         
-    def update_corners(self, corners):
+    # updates the x,y locations of each corner, then uses this to calculate the center point of the marker
+    def update_corners(self, corners): # there's something off here
         self.past_corners.append(self.corners)
         self.corners = corners
-        self.find_center()
+        self.update_center()
         
-        
-    def find_center(self):
+    # calculates and saves the center point of the marker
+    def update_center(self):
         # self.corners is [[[x, y], [x,y], [x,y], [x,y]]]
-        self.center = np.mean(self.corners[0], axis=1)
         self.past_centers.append(self.center)
+        self.center = np.mean(self.corners[0], axis=1)
                 
-    def get_last_corners(self):
+    # returns the list of x,y coordinates for the last known position of the marker
+    def get_corners(self):
         return self.corners
     
-    def get_last_centers(self):
+    # returns the x,y position of the last known position of the marker's center
+    def get_center(self):
         return self.center
     
-    # Get -1 index of the aruco
-    # get movement based on color, 
+    # returns every recorded x,y coordinate for the marker's corners
+    def get_all_corners(self):
+        return self.past_corners
+    
+    # returns every recorded x,y coordinate for the marker's center
+    def get_all_centers(self):
+        return self.past_centers
