@@ -26,9 +26,11 @@ This contains the code you'll need to track your ArUco tags. The functions inclu
 ### ``sphero.py``
 This is basic code for connecting to a sphero and controlling it via keyboard input. Note that you will need to replace line 9 with your sphero's serial number (you can find this on the side of your sphero).
 
+### ``sphero_nav.py``
+This is basic code for having the sphero navigate a pre-specified path. Note: this code has not been tested, so use with caution.
+
 ### ``image_process_utils.py``
 This contains basic utility functions for working with images. It includes functions for grabbing the precise color at a given coordinate, and the average color in a region.
-
 
 ### ``example.py``
 This has example usages of the aruco detector.
