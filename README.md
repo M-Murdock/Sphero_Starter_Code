@@ -34,3 +34,7 @@ This contains basic utility functions for working with images. It includes funct
 
 ### ``example.py``
 This has example usages of the aruco detector.
+
+## Getting Started with SpheroV2
+- To get started using this code, you'll need to have the SpheroV2 library installed: ``pip install spherov2``. For additional information, see the docs [here](https://github.com/artificial-intelligence-class/spherov2.py/tree/main).
+- You will also need to use Python 3.7-3.12, since some actions (such as displaying animations or colors on the Sphero) are not supported with the latest Python versions. 
